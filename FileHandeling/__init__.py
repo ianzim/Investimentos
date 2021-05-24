@@ -3,12 +3,12 @@ def create_file(name):
 
 def add_info(filename, info):
     file = open(filename, 'a+')
-    file.write(f'{info}\n')
+    file.write(f'{info}')
 
 def read_file(filename):
     file = open(filename, 'r+')
     for line in file:
         line = line.split(';')
-        line[1] = line[1].replace('\n', '')
-        print(f'{line[0]:<.20}.....................{line[1]:>8}')
+        line[2] = line[2].replace('\n', '')
+        print(f'{line[0]:.<30}{line[1]} >> {line[2]:>8}')
     file.close()

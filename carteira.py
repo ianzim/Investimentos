@@ -14,9 +14,9 @@ class Carteira:
 
 def cabec(txt):
     print()
-    print('-'*48)
-    print(f'{txt:^48}')
-    print('-'*48)
+    print('-'*51)
+    print(f'{txt:^51}')
+    print('-'*51)
     print()
 
 def get_mes():
@@ -24,7 +24,13 @@ def get_mes():
     mes_aplicação = int(input("Qual o mês da aplicação? (ex: Janeiro: Digite '1') ")) - 1
     mes_inicial = meses[mes_aplicação]
     t = int(input(f"Quantos meses durará a aplicação? "))
-    mes_final = meses[mes_aplicação + t]
+    
+    if mes_aplicação + t > len(meses) - 1:
+        mes_final = meses[(mes_aplicação + t) - 12*((mes_aplicação + t)//12)]
+
+    else:
+        mes_final = meses[mes_aplicação + t]
+
     return [mes_inicial, mes_final, t]
 
 def novoInvestimento():
@@ -56,7 +62,7 @@ def novoInvestimento():
     except FileNotFoundError:
         file = create_file('Carteira.txt', 'wt+')
     else:
-        file.write(f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f}\n')
+        file.write(f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f};{mes[2]} meses\n')
     finally:
         file.close()
 
