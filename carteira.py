@@ -1,5 +1,5 @@
 from FileHandeling import *
-
+import os
 class Carteira:
     def __init__(self, aplicado=0, rendimento_mes=0, montante=0 ):
         self.aplicado = aplicado
@@ -19,19 +19,23 @@ def cabec(txt):
     print('-'*48)
     print()
 
-def novoInvestimento():
+def get_mes():
     meses = ('Jan', 'Fev', 'Mar', 'Abril', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez')
-    mes_aplic = int(input("Qual o mês da aplicação? (ex: Janeiro: Digite '1') "))
+    mes_aplicação = int(input("Qual o mês da aplicação? (ex: Janeiro: Digite '1') ")) - 1
+    mes_inicial = meses[mes_aplicação]
+    t = int(input(f"Quantos meses durará a aplicação? "))
+    mes_final = meses[mes_aplicação + t]
+    return [mes_inicial, mes_final, t]
+
+def novoInvestimento():
+    mes = get_mes()
     c = float(input("Dinheiro inicial aplicado: R$ "))
     c_inicial = c
     i = (float(input("Taxa de juros (em %): "))) / 100
-    t = int(input(f"Por quantos meses os R$ {c} serão aplicados? "))
-    mes_inicial = meses[mes_aplic-1]
-    mes_final = meses[mes_aplic-1 + t]
     aplic_secund = float(input("Valor a ser adicionado ao investimento por mês: R$ "))
     m = 0
 
-    for tempo in range(t):
+    for tempo in range(mes[2]):
         if tempo == 0:
             m = c * (1+i)
         else:
@@ -45,14 +49,14 @@ def novoInvestimento():
     inicial = carteira.get_inicial()
     montante = carteira.total()
 
-    print(f'Com a aplicação de {inicial} por {t} meses, você terá {montante:.2f} ao final do processo')
+    print(f'Com a aplicação de {inicial} por {mes[2]} meses, você terá {montante:.2f} ao final do processo')
 
     try:
         file = open('Carteira.txt', 'a')
     except FileNotFoundError:
         file = create_file('Carteira.txt', 'wt+')
     else:
-        file.write(f'{mes_inicial}-{mes_final}->R${inicial:.2f};R${montante:.2f}')
+        file.write(f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f}\n')
     finally:
         file.close()
 
@@ -84,6 +88,9 @@ def main():
                     break
         if continuar == 'N':
             break
+
+        elif continuar == 'S':
+            os.system('cls' if os.name == 'nt' else 'clear')
         
 main()
 input('Pressione "ENTER" para sair')
