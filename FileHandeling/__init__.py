@@ -10,4 +10,5 @@ def read_file(filename):
     for line in file:
         line = line.split(';')
         line[1] = line[1].replace('\n', '')
-        print(f'{line[0]<.20}{line[1]>8}')
+        print(f'{line[0]:<.20}.....................{line[1]:>8}')
+    file.close()
