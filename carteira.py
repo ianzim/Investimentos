@@ -6,12 +6,11 @@ class Calculadora:
         self.rendimento_mes = rendimento_mes
         self.quantia_total  = quantia_total 
 
-    def get_inicial(self):
-        pass
-
-    def rendimento(self):
-        pass
-
     def total(self):
         pass
 
+def get_inicial():
+    pass
+
+def rendimento():
+    pass
