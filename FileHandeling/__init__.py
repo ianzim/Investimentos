@@ -3,7 +3,7 @@ def create_file(name):
 
 def add_info(filename, info):
     file = open(filename, 'a+')
-    file.write(f'{info}')
+    file.write(info)
 
 def read_file(filename):
     file = open(filename, 'r+')

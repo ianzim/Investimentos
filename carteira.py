@@ -62,9 +62,8 @@ def novoInvestimento():
     except FileNotFoundError:
         file = create_file('Carteira.txt', 'wt+')
     else:
-        file.write(f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f};{mes[2]} meses\n')
-    finally:
-        file.close()
+        add_info('Carteira.txt', f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f};{mes[2]} meses\n')
+
 
 def verInvestimentos():
     try:
