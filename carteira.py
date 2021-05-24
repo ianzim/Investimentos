@@ -64,6 +64,29 @@ def novoInvestimento():
     else:
         add_info('Carteira.txt', f'{mes[0]}-{mes[1]}->R${inicial:.2f};R${montante:.2f};{mes[2]} meses\n')
 
+def investimentoTeste():
+    mes = get_mes()
+    c = float(input("Dinheiro inicial aplicado: R$ "))
+    c_inicial = c
+    i = (float(input("Taxa de juros (em %): "))) / 100
+    aplic_secund = float(input("Valor a ser adicionado ao investimento por mês: R$ "))
+    m = 0
+
+    for tempo in range(mes[2]):
+        if tempo == 0:
+            m = c * (1+i)
+        else:
+            c = m + aplic_secund
+            m = c * (1+i)
+
+    c = c_inicial
+
+    carteira = Carteira(c, i, m)
+
+    inicial = carteira.get_inicial()
+    montante = carteira.total()
+
+    print(f'Com a aplicação de {inicial} por {mes[2]} meses, você terá {montante:.2f} ao final do processo')
 
 def verInvestimentos():
     try:
@@ -74,7 +97,7 @@ def verInvestimentos():
 def main():
     while True:
         cabec('SELECIONE SUA OPÇÃO')
-        opc = ['Realizar um novo investimento', 'Ver investimentos passados']
+        opc = ['Realizar um novo investimento', 'Ver investimentos passados', 'Realizar um investimento teste']
         for i, v in enumerate(opc):
             print(f'[{i+1}]..... {v}')
         op = int(input("Digite sua opção: "))
@@ -84,6 +107,10 @@ def main():
         elif op == 2:
             cabec('SEUS INVESTIMENTOS')
             verInvestimentos()
+        elif op == 3:
+            cabec("TESTE")
+            investimentoTeste()
+
         
         continuar = str(input("Quer continuar? [S/N] ").upper())
         if continuar != "S" and continuar != "N":
