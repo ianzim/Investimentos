@@ -7,8 +7,7 @@ def add_info(filename, info):
 
 def read_file(filename):
     file = open(filename, 'r+')
-    file = file.split(';')
-    mes = file[0]
-    quantia = file[1]
     for line in file:
+        line = line.split(';')
+        line[1] = line[1].replace('\n', '')
         print(f'{line[0]<.20}{line[1]>8}')
